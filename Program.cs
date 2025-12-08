@@ -74,7 +74,8 @@ class Program
             Console.WriteLine("Play again? (Y/N)");
 
             play = UserWantsToPlay();
-            Console.Clear();
+            if (play)
+                Console.Clear();
         }
     }
 }
