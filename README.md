@@ -3,59 +3,69 @@
 Um minigame em C# onde o jogador precisa ganhar de um número-alvo utilizando uma rolagem aleatória de dado.
 O projeto está em desenvolvimento e receberá melhorias nas próximas versões.
 
+---
+
 🚀 Sobre o projeto
 
 O Dice Game é um jogo simples feito inteiramente em C# (Console Application).
 A cada rodada:
 
-O jogo sorteia um Target (número entre 1 e 4)
+-O jogo sorteia um Target (número entre 1 e 4)
 
-O jogador precisa tirar um número maior do que o Target para vencer
+-O jogador precisa tirar um número maior do que o Target para vencer
 
-O jogo exibe a chance de vitória, uma animação de cálculo e o resultado
+-O jogo exibe a chance de vitória, uma animação de cálculo e o resultado
 
-Mantém registro de vitórias e derrotas
+-Mantém registro de vitórias e derrotas
+
+---
 
 Este projeto tem foco em:
 
-Prática com lógica de programação
+*Prática com lógica de programação
 
-Uso da classe Random
+*Uso da classe Random
 
-Limpeza de console
+*Limpeza de console
 
-Animações simples (Thread.Sleep)
+*Animações simples (Thread.Sleep)
 
-Estrutura básica de loops de jogo
+*Estrutura básica de loops de jogo
+
+---
 
 🛠 Tecnologias utilizadas
 
-C# .NET
+-C# .NET
 
-Console Application
+-Console Application
 
-Random
+-Random
 
-Thread.Sleep
+-Thread.Sleep
 
-ANSI Colors / Console.ForegroundColor
+-ANSI Colors / Console.ForegroundColor
+
+---
 
 📌 Status do projeto
 
 ⏳ Em desenvolvimento
 Próximas melhorias planejadas:
 
-Escolha de dificuldade
+-Escolha de dificuldade
 
-Música ou efeitos sonoros (se possível)
+-Música ou efeitos sonoros (se possível)
 
-Mais animações
+-Mais animações
 
-Menu principal
+-Menu principal
 
-Registro de estatísticas salvas
+-Registro de estatísticas salvas
 
-Refatoração do código
+-Refatoração do código
+
+---
 
 ▶️ Como executar
 
@@ -63,22 +73,26 @@ Certifique-se de ter o .NET SDK instalado
 
 Clone o repositório:
 
-git clone https://github.com/LucasMatheus071/Dice-Game.git
+```git clone https://github.com/LucasMatheus071/Dice-Game.git```
 
 
 Entre na pasta:
 
-cd Dice-Game
+```cd Dice-Game```
 
 
 Execute:
 
-dotnet run
+```dotnet run```
+
+---
 
 📄 Licença
 
 Este projeto está sob a licença MIT.
 Veja o arquivo LICENSE para mais detalhes.
+
+---
 
 👤 Autor
 
