@@ -1,30 +1,109 @@
-# 🎲 Dice Game — C# Console Game
+# 🎲 Dice Game 2.0 — C# Console Game
 
-Um minigame em C# onde o jogador precisa ganhar de um número-alvo utilizando uma rolagem aleatória de dado.
-O projeto está em desenvolvimento e receberá melhorias nas próximas versões.
+## ✔️ Versão atualizada — Sistema de Usuários + Pontuação Persistente
+
+Um minigame em C# onde o jogador precisa ganhar de um número-alvo usando uma rolagem aleatória de dado — agora com sistema de contas e pontuação salva.
 
 ---
 
+## 🆕 Novidades da Atualização
+
+Esta versão traz mudanças importantes em relação ao código original:
+
+### ✅ Sistema de Usuários
+
+- Agora o jogo permite cadastrar e reconhecer jogadores.
+Cada usuário possui:
+
+- Nome único
+
+- Pontuação própria
+
+- Registro persistente entre execuções
+
+### ✅ Salvamento automático em JSON
+
+Foi criado um arquivo .json que guarda:
+
+* Lista de jogadores
+
+* Pontuação individual
+
+* Histórico persistente
+
+* Ao iniciar o jogo:
+
+- Se o usuário já existir, seus pontos são carregados
+
+- Se for um usuário novo, é criado automaticamente com pontuação 0
+
+---
+
+✅ Nova classe UserDice
+
+Uma nova classe foi adicionada ao projeto para organizar melhor os dados:
+
+```
+public class UserDice
+    {
+        public string DiceNick { get; set; } = "";
+        public int Points { get; set; } = 0;
+    
+        public UserDice() { }
+    
+        public UserDice(string nickname)
+        {
+            DiceNick = nickname;
+            Console.WriteLine($"Hello {DiceNick}, welcome to DiceGame!");
+        }
+```
+Responsável por:
+
+* Armazenar nome
+
+* Controlar pontos
+
+* Atualizar e retornar o placar
+
+---
+
+## 🎨 Melhorias gerais
+
+### Além das novas features, essa versão traz:
+
+* Organização melhor da lógica do jogo
+
+* Estrutura mais limpa e separada (Program / Pessoa / JSON handling)
+
+* Animações e efeitos visuais mantidos
+
+* Preparação para futuras expansões (menus, dificuldades, ranking, etc.)  
+
+
 ## 🚀 Sobre o projeto
 
-O Dice Game é um jogo simples feito inteiramente em C# (Console Application).
+O Dice Game continua sendo um jogo simples em C# (Console Application), onde
 A cada rodada:
 
-- O jogo sorteia um Target (número entre 1 e 4)
+- Um Target entre 1 e 4 é sorteado
 
-- O jogador precisa tirar um número maior do que o Target para vencer
+- O jogador precisa tirar um número maior para vencer
 
-- O jogo exibe a chance de vitória, uma animação de cálculo e o resultado
+- O jogo mostra a chance de vitória
 
-- Mantém registro de vitórias e derrotas
+- Uma pequena animação é exibida
+
+- A jogada é avaliada
+
+- Agora: os pontos são armazenados para cada jogador
 
 ---
 
 ## preview
 
-<img width="220" height="180" alt="image" src="https://github.com/user-attachments/assets/b6e1a12a-e575-4f00-aea5-424880a84ad9" />
-<img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/4183e890-c025-4e85-be61-2a5fc45290f0" />
-<img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/80c6fc89-0cd9-48e5-984c-76578567ce72" />
+<img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/4ef7a336-efb9-44ad-9667-9fb6cce6ade4" />
+<img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/4bd08ef8-a592-4e81-bf6a-702ddb617ef6" />
+<img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/bcf28b0f-0669-4657-a351-f9032daae662" />
 <img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/76e9d0c6-9d46-4c85-b4e3-e675891f8e69" />
 
 
@@ -33,15 +112,17 @@ A cada rodada:
 
 ## Este projeto tem foco em:
 
-* Prática com lógica de programação
+* Manipulação de arquivos JSON
 
-* Uso da classe Random
+* Organização em classes
 
-* Limpeza de console
+* Menus e fluxo de jogo estruturado
 
-* Animações simples (Thread.Sleep)
+* Animações no console
 
-* Estrutura básica de loops de jogo
+* Estrutura de loops de jogo e estados
+
+* Praticar POO 
 
 ---
 
@@ -51,31 +132,36 @@ A cada rodada:
 
 - Console Application
 
+- Sistema de arquivos (JSON)
+
 - Random
 
 - Thread.Sleep
 
-- ANSI Colors / Console.ForegroundColor
+- Console.ForegroundColor
 
+- Serialização com System.Text.Json
+- 
 ---
 
 ## 📌 Status do projeto
 
 ### ⏳ Em desenvolvimento
-### Próximas melhorias planejadas:
+Além das melhorias já feitas, as próximas etapas incluem:
+
+- Menu principal com opções
+
+- Ranking de jogadores
+
+- Múltiplos modos de jogo
 
 - Escolha de dificuldade
 
-- Música ou efeitos sonoros (se possível)
+- Animações aprimoradas
 
-- Mais animações
+- Efeitos sonoros
 
-- Menu principal
-
-- Registro de estatísticas salvas
-
-- Refatoração do código
-
+- Refatoração completa para Program + Services + Models
 ---
 
 ## ▶️ Como executar
