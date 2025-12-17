@@ -1,4 +1,4 @@
-# 🎲 Dice Game 2.0 — C# Console Game
+# 🎲 Dice Game 3.0 — C# Console Game
 
 ## ✔️ Versão atualizada — Sistema de Usuários + Pontuação Persistente
 
