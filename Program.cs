@@ -18,8 +18,8 @@ public class UserDice
         Console.WriteLine($"Hello {DiceNick}, welcome to DiceGame!");
     }
 
-    public void SumPoints() => Points++;
-    public void MinusPoints() => Points--;
+    public void SumPoints(int p = 1) => Points += p;
+    public void MinusPoints(int p = 1) => Points -= p;
     public int ShowPoints() => Points;
 }
 
@@ -53,7 +53,7 @@ class Program
                     if (LoadGame())
                     {
                         PreLoad();
-                        PlayGame();
+                        ChoiceTheGame();
                     }
                     Salvar(users);
                     break;
@@ -61,7 +61,7 @@ class Program
                     if (NewGame())
                     {
                         PreLoad();
-                        PlayGame();
+                        ChoiceTheGame();
                     }
                     Salvar(users);
                     break;
@@ -111,8 +111,30 @@ class Program
         Salvar(users);
         return true;
     }
+    static void ChoiceTheGame()
+    {
+        string? entrada;
 
-    static void PlayGame()
+        Console.WriteLine("\n1 - Luck Game");
+        Console.WriteLine("2 - rapid fire");
+        Console.WriteLine("3 - random key");
+        entrada = Console.ReadLine();
+
+        switch (entrada)
+        {
+            case "1":
+                LuckGame();
+                break;
+            case "2":
+                RapidFire();
+                break;
+            case "3":
+                RandomKey();
+                break;
+        }
+    }
+
+    static void LuckGame()
     {
         int wins = 0;
         int losses = 0;
@@ -120,6 +142,8 @@ class Program
 
         while (play)
         {
+            Console.Clear();
+            
             int target = random.Next(1, 5);
             int roll = random.Next(1, 6);
 
@@ -153,12 +177,171 @@ class Program
             Console.WriteLine($"\nWins: {wins}  |  Losses: {losses}");
             Console.WriteLine("Play again? (Y/N)");
 
+            play = UserWantsToPlay();            
+        }
+    }
+    static void RapidFire()
+    {
+        int wins = 0;
+        int losses = 0;
+        bool play = true;
+
+        string frame = "-->";
+
+        while (play)
+        {
+            Console.Clear();   
+
+            bool keyNotPress = true;
+            bool win = false;
+
+            Random Rand = new();
+            int x = Rand.Next(3, 12);
+
+            Console.WriteLine("Press 'E' ");
+            for (int i = 0; i < 20; i++)
+            {
+                if (i <= x)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+
+                    while (Console.KeyAvailable)
+                        Console.ReadKey(true);
+                }
+                else if (i > x && i < x + 5)
+                {
+                    if (keyNotPress)
+                        Console.ForegroundColor = ConsoleColor.Blue;
+
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(true);
+                        keyNotPress = false;
+                        if (key.Key == ConsoleKey.E)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            win = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+                    }
+                }
+                else if (keyNotPress && i >= x + 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+
+                Console.Write("\r" + new string(' ', i) + frame);
+                Thread.Sleep(200);
+            }
+            Console.Write($"\r{new string(' ', Console.BufferWidth - 1)}");
+            
+            if (win)
+            {      
+                Console.WriteLine("\nYou WIN!");
+                jogadorAtual.SumPoints(2);
+                wins++;
+            }
+            else
+            {             
+                Console.WriteLine("\nYou LOSE!");
+                jogadorAtual.MinusPoints();
+                losses++;
+            }
+            Console.ResetColor();
+            Console.WriteLine($"\nWins: {wins}  |  Losses: {losses}");
+            Console.WriteLine("Play again? (Y/N)");
+
             play = UserWantsToPlay();
-            if (play)
-                Console.Clear();
         }
     }
 
+    static void RandomKey()
+    {
+        int wins = 0;
+        int losses = 0;
+        bool play = true;
+
+        string frame = "-->";
+
+
+        while (play)
+        {
+            Console.Clear();
+
+            bool keyNotPress = true;
+            bool win = false;
+
+            Random Rand = new();
+            int x = Rand.Next(3, 12);
+            char letra = (char)Rand.Next('A', 'Z' + 1);
+
+            ConsoleKey tecla = (ConsoleKey)letra;
+            Console.WriteLine($"A letra é '{letra}'");
+
+
+            for (int i = 0; i < 20; i++)
+            {
+                if (i <= x)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+
+                    while (Console.KeyAvailable)
+                        Console.ReadKey(true);
+                }
+                if (i > x && i < x + 5)
+                {
+                    if (keyNotPress)
+                        Console.ForegroundColor = ConsoleColor.Blue;
+
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(true);
+                        keyNotPress = false;
+                        if (key.Key == tecla)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            win = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+                    }
+                }
+                else if (keyNotPress && i >= x + 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+
+                Console.Write("\r" + new string(' ', i) + frame);
+                Thread.Sleep(200);
+            }
+            Console.Write($"\r{new string(' ', Console.BufferWidth - 1)}");
+
+            if (win)
+            {
+                Console.WriteLine("\nYou WIN!");
+                jogadorAtual.SumPoints(3);
+                wins++;
+            
+            }
+            else
+            {
+                Console.WriteLine("\nYou LOSE!");
+                jogadorAtual.MinusPoints();
+                losses++;
+            }
+            Console.ResetColor();
+
+            Console.WriteLine($"\nWins: {wins}  |  Losses: {losses}");
+            Console.WriteLine("Play again? (Y/N)");
+
+            play = UserWantsToPlay();
+        }
+    }
     static bool UserWantsToPlay()
     {
         string? input = Console.ReadLine();
@@ -208,7 +391,7 @@ class Program
 
         Console.Write("\r" + new string(' ', Console.WindowWidth - 1));
         Console.ResetColor();
-        
+
     }
 
     static List<UserDice> Carregar()
