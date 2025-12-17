@@ -77,7 +77,9 @@ Responsável por:
 
 * Animações e efeitos visuais mantidos
 
-* Preparação para futuras expansões (menus, dificuldades, ranking, etc.)  
+* Preparação para futuras expansões (menus, dificuldades, ranking, etc.)
+
+* **Novos modos de jogo: Rapid Fire e Random Key** e um novo menu para modos de jogo
 
 
 ## 🚀 Sobre o projeto
@@ -95,7 +97,25 @@ A cada rodada:
 
 - A jogada é avaliada
 
-- Agora: os pontos são armazenados para cada jogador
+- Os pontos são armazenados para cada jogador
+
+---
+
+## Além disso, nesta versão (v3.0) foram adicionados **dois novos modos de jogo**:
+
+### Modos de jogo atuais:
+
+1. **Rapid Fire**
+   - Uma seta se move pela tela
+   - O jogador deve pressionar `'E'` **no momento certo** (quando a seta ficar azul)
+   - Acertar aumenta os pontos, errar diminui
+   - Permite treinar reflexos e timing
+
+2. **Random Key**
+   - Uma letra aleatória é sorteada a cada rodada
+   - O jogador deve pressionar a **letra correta no timing certo**
+   - Similar ao Rapid Fire, mas adiciona variação com letras
+   - Pontos são contabilizados de forma semelhante
 
 ---
 
@@ -106,9 +126,15 @@ A cada rodada:
 <img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/bcf28b0f-0669-4657-a351-f9032daae662" />
 <img width="220" height="200" alt="image" src="https://github.com/user-attachments/assets/76e9d0c6-9d46-4c85-b4e3-e675891f8e69" />
 
+---
+
+<img width="213" height="120" alt="image" src="https://github.com/user-attachments/assets/d6bdec56-73ab-423e-b72d-df9719bf105e" />
+<img width="172" height="120" alt="image" src="https://github.com/user-attachments/assets/bcd1e584-651b-4f02-b648-ac511df9f1d1" />
+<img width="138" height="120" alt="image" src="https://github.com/user-attachments/assets/c88f5953-f72a-4712-b5b7-eefc26a099a4" />
+<img width="172" height="120" alt="image" src="https://github.com/user-attachments/assets/4242e41f-6b53-4bed-a84f-2a1e808d46e6" />
 
 
-
+---
 
 ## Este projeto tem foco em:
 
