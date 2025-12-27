@@ -1,13 +1,16 @@
-﻿using System;
+﻿﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO.Pipelines;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 public class UserDice
 {
     public string DiceNick { get; set; } = "";
+
+    public const string caminhoArquivo = "Users.json";
     public int Points { get; set; } = 0;
 
     public UserDice() { }
@@ -25,10 +28,10 @@ public class UserDice
 
 class Program
 {
-    const string caminhoArquivo = "Users.json";
+
     static List<UserDice> users = Carregar();
     static UserDice? jogadorAtual = null;
-    static Random random = new Random();
+    static Random random = new();
 
     static void Main()
     {
@@ -113,24 +116,31 @@ class Program
     }
     static void ChoiceTheGame()
     {
+        Console.Clear();
         string? entrada;
 
         Console.WriteLine("\n1 - Luck Game");
         Console.WriteLine("2 - rapid fire");
         Console.WriteLine("3 - random key");
+        Console.WriteLine("4 - exit");
         entrada = Console.ReadLine();
 
         switch (entrada)
         {
             case "1":
                 LuckGame();
+                ChoiceTheGame();
                 break;
             case "2":
-                RapidFire();
+                KeyGame(0);
+                ChoiceTheGame();
                 break;
             case "3":
-                RandomKey();
+                KeyGame(1);
+                ChoiceTheGame();
                 break;
+            case "4":
+                return;
         }
     }
 
@@ -143,7 +153,7 @@ class Program
         while (play)
         {
             Console.Clear();
-            
+
             int target = random.Next(1, 5);
             int roll = random.Next(1, 6);
 
@@ -161,96 +171,19 @@ class Program
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You WIN!");
                 wins++;
-                jogadorAtual.SumPoints();
+                jogadorAtual!.SumPoints();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You LOSE!");
                 losses++;
-                jogadorAtual.MinusPoints();
+                jogadorAtual!.MinusPoints();
 
             }
 
             Console.ResetColor();
 
-            Console.WriteLine($"\nWins: {wins}  |  Losses: {losses}");
-            Console.WriteLine("Play again? (Y/N)");
-
-            play = UserWantsToPlay();            
-        }
-    }
-    static void RapidFire()
-    {
-        int wins = 0;
-        int losses = 0;
-        bool play = true;
-
-        string frame = "-->";
-
-        while (play)
-        {
-            Console.Clear();   
-
-            bool keyNotPress = true;
-            bool win = false;
-
-            Random Rand = new();
-            int x = Rand.Next(3, 12);
-
-            Console.WriteLine("Press 'E' ");
-            for (int i = 0; i < 20; i++)
-            {
-                if (i <= x)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-
-                    while (Console.KeyAvailable)
-                        Console.ReadKey(true);
-                }
-                else if (i > x && i < x + 5)
-                {
-                    if (keyNotPress)
-                        Console.ForegroundColor = ConsoleColor.Blue;
-
-                    if (Console.KeyAvailable)
-                    {
-                        var key = Console.ReadKey(true);
-                        keyNotPress = false;
-                        if (key.Key == ConsoleKey.E)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            win = true;
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                        }
-                    }
-                }
-                else if (keyNotPress && i >= x + 5)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                }
-
-                Console.Write("\r" + new string(' ', i) + frame);
-                Thread.Sleep(200);
-            }
-            Console.Write($"\r{new string(' ', Console.BufferWidth - 1)}");
-            
-            if (win)
-            {      
-                Console.WriteLine("\nYou WIN!");
-                jogadorAtual.SumPoints(2);
-                wins++;
-            }
-            else
-            {             
-                Console.WriteLine("\nYou LOSE!");
-                jogadorAtual.MinusPoints();
-                losses++;
-            }
-            Console.ResetColor();
             Console.WriteLine($"\nWins: {wins}  |  Losses: {losses}");
             Console.WriteLine("Play again? (Y/N)");
 
@@ -258,7 +191,7 @@ class Program
         }
     }
 
-    static void RandomKey()
+    static void KeyGame(int a)
     {
         int wins = 0;
         int losses = 0;
@@ -276,10 +209,10 @@ class Program
 
             Random Rand = new();
             int x = Rand.Next(3, 12);
-            char letra = (char)Rand.Next('A', 'Z' + 1);
+            char letra = a == 1 ? (char)Rand.Next('A', 'Z' + 1) : 'E';
 
             ConsoleKey tecla = (ConsoleKey)letra;
-            Console.WriteLine($"A letra é '{letra}'");
+            Console.WriteLine($"Press '{letra}'!");
 
 
             for (int i = 0; i < 20; i++)
@@ -324,14 +257,14 @@ class Program
             if (win)
             {
                 Console.WriteLine("\nYou WIN!");
-                jogadorAtual.SumPoints(3);
+                jogadorAtual!.SumPoints(3);
                 wins++;
-            
+
             }
             else
             {
                 Console.WriteLine("\nYou LOSE!");
-                jogadorAtual.MinusPoints();
+                jogadorAtual!.MinusPoints();
                 losses++;
             }
             Console.ResetColor();
@@ -396,10 +329,10 @@ class Program
 
     static List<UserDice> Carregar()
     {
-        if (!File.Exists(caminhoArquivo))
+        if (!File.Exists(UserDice.caminhoArquivo))
             return new List<UserDice>();
 
-        string json = File.ReadAllText(caminhoArquivo);
+        string json = File.ReadAllText(UserDice.caminhoArquivo);
         return JsonSerializer.Deserialize<List<UserDice>>(json)
         ?? new List<UserDice>();
     }
@@ -407,7 +340,7 @@ class Program
     static void Salvar(List<UserDice> users)
     {
         string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-        File.WriteAllText(caminhoArquivo, json);
+        File.WriteAllText(UserDice.caminhoArquivo, json);
     }
 
     public static bool VerificarDuplo(string user, List<UserDice> users)
